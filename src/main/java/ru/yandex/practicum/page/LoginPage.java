@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.page;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
@@ -46,8 +46,6 @@ public class LoginPage {
         passwordField.setValue(password);
     }
 
-
-
     @Step("Вход пользователя")
     public void authorization(String email, String password) {
         setEmail(email);
@@ -56,6 +54,5 @@ public class LoginPage {
         step("Првоерка видимости кнопки Оформить заказ", this::checkSuccessEntry);
 
     }
-
 
 }

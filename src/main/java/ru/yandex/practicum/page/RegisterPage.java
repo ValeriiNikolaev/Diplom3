@@ -1,12 +1,12 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.page;
 
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
-import static ru.yandex.practicum.GenerationData.getRandomStringEng;
-import static ru.yandex.practicum.GenerationData.getRandomStringRu;
+import static ru.yandex.practicum.data.GenerationData.getRandomStringEng;
+import static ru.yandex.practicum.data.GenerationData.getRandomStringRu;
 
 public class RegisterPage {
 

@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.api;
 
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;

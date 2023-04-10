@@ -6,6 +6,12 @@ import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.yandex.practicum.api.CreateDeleteUser;
+import ru.yandex.practicum.data.GenerationData;
+import ru.yandex.practicum.page.ForgotPassword;
+import ru.yandex.practicum.page.LoginPage;
+import ru.yandex.practicum.page.MainPage;
+import ru.yandex.practicum.page.RegisterPage;
 
 public class AuthorizationTest {
 
@@ -13,6 +19,11 @@ public class AuthorizationTest {
     String email;
     String password;
     String accessToken;
+
+    public void startYandex() {
+        System.setProperty("webdriver.chrome.driver", "d:\\Webdriver\\bin\\yandexdriver.exe");
+        System.setProperty("selenide.browser", "Chrome");
+    }
 
     @Before
     public void start() {
@@ -84,10 +95,5 @@ public class AuthorizationTest {
         loginPage.clickButtonEntry();
         loginPage.authorization(email, password);
     }
-
-
-
-
-
 
 }

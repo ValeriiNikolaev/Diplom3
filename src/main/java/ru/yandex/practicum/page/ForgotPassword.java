@@ -1,4 +1,4 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.page;
 
 import com.codeborne.selenide.SelenideElement;
 

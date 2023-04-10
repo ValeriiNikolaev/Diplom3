@@ -1,10 +1,9 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.page;
 
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 ;
 
@@ -20,12 +19,10 @@ public class MainPage {
             sauce = $$("div span").findBy(text("Соусы")),
             h1TextCreateBurger = $$("h1").findBy(text("Соберите бургер")),
             filling = $$("div span").findBy(text("Начинки")),
-            h2Bun = $$("h2").findBy(text("Булки")),
-            h2Sauce = $$("h2").findBy(text("Соусы")),
-            h2Filling = $$("h2").findBy(text("Начинки"));
+            active = $x("//div[@class='tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/span[@class='text text_type_main-default']");
 
-    public  String
-    selectElement  = "rgb(76, 76, 25)";
+
+
 
 
     public void clickButtonEntryToAccount() {
@@ -61,18 +58,9 @@ public class MainPage {
         return (filling);
     }
 
-    public SelenideElement getH2Bun () {
-        return (h2Bun);
+    public SelenideElement getActive() {
+        return (active);
     }
-
-    public SelenideElement getH2Sauce () {
-        return (h2Sauce);
-    }
-
-    public SelenideElement getH2Filling () {
-        return (h2Filling);
-    }
-
 
 
 }
