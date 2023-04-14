@@ -6,7 +6,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static io.qameta.allure.Allure.step;
 
 public class ForgotPassword {
-    public final SelenideElement
+    private final SelenideElement
 
             hyperTextEntry = $("a[href='/login']");
 

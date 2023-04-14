@@ -13,24 +13,31 @@ import ru.yandex.practicum.page.LoginPage;
 import ru.yandex.practicum.page.MainPage;
 import ru.yandex.practicum.page.RegisterPage;
 
+
 public class AuthorizationTest {
 
     String name;
     String email;
     String password;
     String accessToken;
+    UrlsForm urlsForm = new UrlsForm();
+    MainPage mainPage = new MainPage();
+    LoginPage loginPage = new LoginPage();
+    RegisterPage registerPage = new RegisterPage();
+    ForgotPassword forgotPassword = new ForgotPassword();
 
     public void startYandex() {
         System.setProperty("webdriver.chrome.driver", "d:\\Webdriver\\bin\\yandexdriver.exe");
         System.setProperty("selenide.browser", "Chrome");
     }
 
+    CreateDeleteUser createDeleteUser = new CreateDeleteUser();
+
     @Before
     public void start() {
         name = GenerationData.getRandomStringEng(5);
         email = GenerationData.getRandomStringEng(5) + "@" + GenerationData.getRandomStringRu(5) + ".ru";
         password = GenerationData.getRandomStringEng(6);
-        CreateDeleteUser createDeleteUser = new CreateDeleteUser();
         ValidatableResponse response = createDeleteUser.create(email, password, name);
         accessToken = response.extract().path("accessToken");
 
@@ -38,61 +45,40 @@ public class AuthorizationTest {
 
     @After
     public void clean() {
-
-        CreateDeleteUser createDeleteUser = new CreateDeleteUser();
         createDeleteUser.delete(accessToken);
         Selenide.closeWebDriver();
-
     }
 
-
     @Test
-    @DisplayName("Entry click button Entry to account in main page")
-    public void checkButtonEntryToAccountMainPageTest() {
-        UrlsForm urlsForm = new UrlsForm();
+    @DisplayName("Successfully authorization through button Enter  in main page")
+    public void checkButtonEnterAccountMainPageTest() {
         urlsForm.openMainPage();
-        MainPage mainPage = new MainPage();
         mainPage.clickButtonEntryToAccount();
-        LoginPage loginPage = new LoginPage();
-        loginPage.clickButtonEntry();
         loginPage.authorization(email, password);
     }
 
     @Test
-    @DisplayName("Entry click button Entry to personal Account in main page")
-    public void entryToPersonalAccountTest() {
-        UrlsForm urlsForm = new UrlsForm();
+    @DisplayName("Successfully authorization through button Personal_Account in main page")
+    public void enterButtonPersonalAccountTest() {
         urlsForm.openMainPage();
-        MainPage mainPage = new MainPage();
         mainPage.clickPersonalAccount();
-        LoginPage loginPage = new LoginPage();
-        loginPage.clickButtonEntry();
         loginPage.authorization(email, password);
     }
 
     @Test
-    @DisplayName("Entry click to buttonHyperText in form registrations" +
-            "")
-    public void entryButtonHyperTextEntryInRegistrationsPageTest() {
-        UrlsForm urlsForm = new UrlsForm();
+    @DisplayName("Successfully authorization through Link in form Registrations page")
+    public void checkLinkEnterRegistrationsPageTest() {
         urlsForm.openRegisterPage();
-        RegisterPage registerPage= new RegisterPage();
-        registerPage.clickButtonHyperTextEntry();
-        LoginPage loginPage = new LoginPage();
-        loginPage.clickButtonEntry();
+        registerPage.clickLinkEnter();
         loginPage.authorization(email, password);
     }
 
 
     @Test
-    @DisplayName("Entry click to buttonHyperText in form ForgotPasswordPage")
-    public void entryButtonHyperTextEntryForgotPasswordPageTest() {
-        UrlsForm urlsForm = new UrlsForm();
+    @DisplayName("Successfully authorization through Link in form Forgot_Password Page")
+    public void checkLinkEnterForgotPasswordPageTest() {
         urlsForm.openForgotPasswordPage();
-        ForgotPassword forgotPassword = new ForgotPassword();
-        forgotPassword.hyperTextEntry.click();
-        LoginPage loginPage = new LoginPage();
-        loginPage.clickButtonEntry();
+        forgotPassword.clickButtonHyperTextEntryToForgotPassword();
         loginPage.authorization(email, password);
     }
 

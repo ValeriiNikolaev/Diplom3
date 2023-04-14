@@ -12,15 +12,19 @@ import static io.qameta.allure.Allure.step;
 public class LoginPage {
 
 
-    public final SelenideElement
-            buttonEntry = $$("button").findBy(text("Войти")),
-            emailField = $x("//div[label[text() = 'Email']]/input"),
-            passwordField = $x("//div[label[text() = 'Пароль']]/input"),
-            h2Entry = $("h2"),
+    private final SelenideElement
+            buttonEnter = $$("button").findBy(text("Войти"));
+    private final SelenideElement
+            emailField = $x("//div[label[text() = 'Email']]/input");
+    private final SelenideElement
+            passwordField = $x("//div[label[text() = 'Пароль']]/input");
+    private final SelenideElement
+            h2Entry = $("h2");
+    private final SelenideElement
             buttonOrder = $$("button").findBy(text("Оформить заказ"));
 
-    public void clickButtonEntry() {
-        buttonEntry.click();
+    public void clickButtonEnter() {
+        buttonEnter.click();
     }
 
     public void checkVisibleH2Entry() {
@@ -31,7 +35,7 @@ public class LoginPage {
         buttonOrder.shouldBe(visible);
     }
     public void checkVisibleButtonEntry() {
-        buttonEntry.shouldBe(visible);
+        buttonEnter.shouldBe(visible);
     }
 
     @Step("Ввод email")
@@ -50,8 +54,8 @@ public class LoginPage {
     public void authorization(String email, String password) {
         setEmail(email);
         setPassword(password);
-        clickButtonEntry();
-        step("Првоерка видимости кнопки Оформить заказ", this::checkSuccessEntry);
+        clickButtonEnter();
+        step("Проверка видимости кнопки Оформить заказ", this::checkSuccessEntry);
 
     }
 

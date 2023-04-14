@@ -1,57 +1,83 @@
 package ru.yandex.practicum.page;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
-import static ru.yandex.practicum.data.GenerationData.getRandomStringEng;
-import static ru.yandex.practicum.data.GenerationData.getRandomStringRu;
 
 public class RegisterPage {
 
 
-    public final SelenideElement
-            h2Registration = $("h2"),
-            email = $x("//div[label[text() = 'Email']]/input"),
-            name = $x("//div[label[text() = 'Имя']]/input"),
-            password = $x("//div[label[text() = 'Пароль']]/input"),
-            buttonRegistration = $$("button").findBy(text("Зарегистрироваться")),
-            h2Entry = $("h2"),
-            error = $$("p").findBy(text("Некорректный пароль")),
+    private final SelenideElement
+            h2Registration = $("h2");
+    private final SelenideElement
+            emailInput = $x("//div[label[text() = 'Email']]/input");
+    private final SelenideElement
+            nameInput = $x("//div[label[text() = 'Имя']]/input");
+    private final SelenideElement
+            passwordInput = $x("//div[label[text() = 'Пароль']]/input");
+    private final SelenideElement
+            buttonRegistration = $$("button").findBy(text("Зарегистрироваться"));
+    private final SelenideElement
+            h2Entry = $("h2");
+    private final SelenideElement
+            error = $$("p").findBy(text("Некорректный пароль"));
+    private final SelenideElement
             hyperTextEntry = $("a[href='/login']");
 
 
-    public void createClient() {
-        step("Проверка формы регистрации", () -> h2Registration.shouldHave(text("Регистрация")));
-        enterName();
-        enterEmail();
-        setPasswordValidate();
+
+
+    @Step("Create  user")
+    public void createClient(String name, String email, String Password) {
+        enterName(name);
+        enterEmail(email);
+        setPasswordValidate(Password);
     }
 
-    public void enterName() {
-        step("Ввод в поле имя", () -> name.val(getRandomStringRu(5)));
+    public void enterName(String name) {
+        step("Ввод в поле имя", () -> nameInput.val(name));
     }
 
-    public void enterEmail() {
-        step("Ввод в поле email", () -> email.val(getRandomStringEng(5) + "@" + getRandomStringEng(5) + ".ru"));
+    public void enterEmail(String email) {
+        step("Ввод в поле email", () -> emailInput.val(email));
     }
 
-    public void setPasswordValidate() {
-        step("Ввод в поле пароль", () -> password.val(getRandomStringEng(6)));
+    public void setPasswordValidate(String password) {
+        step("Ввод в поле пароль", () -> passwordInput.val(password));
     }
 
-    public void setPasswordNoValidate() {
-        step("Ввод в поле пароль", () -> password.val(getRandomStringEng(5)));
+    public void setPasswordNoValidate(String passwordInvalid) {
+        step("Ввод в поле пароль", () -> passwordInput.val(passwordInvalid));
     }
 
     public void clickButtonRegistration() {
         step("Клик по кнопке зарегистрироваться", () -> buttonRegistration.click());
+
     }
 
-    public void clickButtonHyperTextEntry() {
-        step("Клик по гипертексту Войти", () -> hyperTextEntry.click());
+    public void clickLinkEnter() {
+        step("Клик по link Войти", () -> hyperTextEntry.click());
     }
 
 
+    public SelenideElement getError() {
+        return error;
+    }
+
+    public SelenideElement getH2Entry() {
+        return h2Entry;
+    }
+
+    public SelenideElement getH2Registration() {
+        return h2Registration;
+    }
+
+    @Step("Entering the data of the created user")
+    public void enterDataCreatedUser(String email, String password) {
+        enterEmail(email);
+        setPasswordValidate(password);
+    }
 }

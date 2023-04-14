@@ -12,9 +12,7 @@ import ru.yandex.practicum.page.LoginPage;
 import ru.yandex.practicum.page.MainPage;
 import ru.yandex.practicum.page.ProfilePage;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$$;
 import static io.qameta.allure.Allure.step;
 
 public class TransitionTest {
@@ -27,19 +25,19 @@ public class TransitionTest {
     MainPage mainPage = new MainPage();
     LoginPage loginPage = new LoginPage();
     ProfilePage profilePage = new ProfilePage();
+    CreateDeleteUser createDeleteUser = new CreateDeleteUser();
 
 
     @Before
     public void start() {
         name = GenerationData.getRandomStringEng(5);
-        email = GenerationData.getRandomStringEng(5) + "@" + GenerationData.getRandomStringRu(5) + ".ru";
+        email = GenerationData.getRandomStringEng(5) + "@" + GenerationData.getRandomStringEng(5) + ".ru";
         password = GenerationData.getRandomStringEng(6);
-        CreateDeleteUser createDeleteUser = new CreateDeleteUser();
         ValidatableResponse response = createDeleteUser.create(email, password, name);
         accessToken = response.extract().path("accessToken");
         urlsForm.openMainPage();
         mainPage.clickButtonEntryToAccount();
-        loginPage.clickButtonEntry();
+        loginPage.clickButtonEnter();
         loginPage.authorization(email, password);
 
     }
@@ -59,7 +57,7 @@ public class TransitionTest {
         urlsForm.openMainPage();
         mainPage.clickPersonalAccount();
         step("Проверка что мы в личном кабинете", () ->
-                $$("p").findBy(text("В этом разделе вы можете изменить свои персональные данные")));
+                profilePage.getTextPersonalAccount().shouldBe(visible));
     }
 
     @Test
@@ -70,7 +68,7 @@ public class TransitionTest {
         mainPage.clickButtonConstructor();
         step("Проверка что перешли и кнопка оформить заказ(авторизованы)", () -> {
             mainPage.getH1TextCreateBurger().shouldBe(visible);
-            loginPage.buttonOrder.shouldBe(visible);
+            loginPage.checkSuccessEntry();
         });
     }
 
@@ -82,7 +80,7 @@ public class TransitionTest {
         mainPage.clickLogo();
         step("Проверка что перешли и кнопка оформить заказ(авторизованы)", () -> {
             mainPage.getH1TextCreateBurger().shouldBe(visible);
-            loginPage.buttonOrder.shouldBe(visible);
+            loginPage.checkSuccessEntry();
         });
     }
 
