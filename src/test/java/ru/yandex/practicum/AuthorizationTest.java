@@ -31,6 +31,7 @@ public class AuthorizationTest {
         System.setProperty("selenide.browser", "Chrome");
     }
 
+
     CreateDeleteUser createDeleteUser = new CreateDeleteUser();
 
     @Before

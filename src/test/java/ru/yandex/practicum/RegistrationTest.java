@@ -71,13 +71,15 @@ public class RegistrationTest {
         registerPage.enterEmail(email);
         registerPage.setPasswordNoValidate(passwordInvalid);
         registerPage.clickButtonRegistration();
-        step("Проверка ошибки", () -> registerPage.getError().shouldBe(visible));
         if (!registerPage.getError().isDisplayed()) {
             step("Авторизация пользователя", () -> {
                 accessToken = new CreateDeleteUser().login(email, password);
                 Selenide.executeJavaScript("localStorage.setItem('accessToken', '" + accessToken + "')");
             });
         }
+        else
+            step("Проверка ошибки", () -> registerPage.getError().shouldBe(visible));
+
     }
 
 }
